@@ -16,6 +16,9 @@ public class LoanCalc {
 		double loan = Double.parseDouble(args[0]);
 		double rate = Double.parseDouble(args[1]);
 		int n = Integer.parseInt(args[2]);
+//		double loan = 100000;
+//		double rate = 5;
+//		int n = 10;
 		System.out.println("Loan sum = " + loan + ", interest rate = " + rate + "%, periods = " + n);
 		
 		// Computes the periodical payment using brute force search
@@ -40,7 +43,15 @@ public class LoanCalc {
 	// Side effect: modifies the class variable iterationCounter.
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {  
     	// Replace the following statement with your code
-    	return 0;
+		double pay = loan/n;
+		//double paymentPerYear = ;
+		while (endBalance(loan, rate, n, pay) > 0){
+			pay = pay + epsilon;
+			iterationCounter++;
+		}
+
+
+    	return pay;
     }
     
     /**
@@ -52,7 +63,22 @@ public class LoanCalc {
 	// Side effect: modifies the class variable iterationCounter.
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
     	// Replace the following statement with your code
-    	return 0;
+        double h = loan;
+		double l = (loan / n);
+		double H = endBalance(loan, rate, n, h);
+		double L = endBalance(loan, rate, n, l);
+		double g = (h + l)/2;
+		while (h - g > epsilon){
+			if (endBalance(loan, rate, n, g) * L > 0){
+				l = g;
+
+			}
+			else {
+				h = g;
+			}
+			g = (h + l)/2;
+		}
+    	return g;
     }
 	
 	/**
@@ -61,6 +87,11 @@ public class LoanCalc {
 	*/
 	private static double endBalance(double loan, double rate, int n, double payment) {
 		// Replace the following statement with your code
-    	return 0;
+		double balance = loan;
+
+		for (int i = 0 ; i < n ; i++){
+			balance = (balance - payment) * (1 + (rate/100));
+		}
+    	return balance;
 	}
 }
