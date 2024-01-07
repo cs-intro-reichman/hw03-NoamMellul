@@ -22,6 +22,9 @@ public class Calendar {
                 System.out.print(month + "/");
                 System.out.print(year);
                 System.out.println();
+                if (dayOfWeek == 1){
+                    System.out.print(" Sunday");
+                }
                 debugDaysCounter++;
 
                 if((debugDaysCounter >= 365) && (isLeapYear(year1) == false))  {
